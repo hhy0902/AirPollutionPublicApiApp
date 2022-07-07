@@ -11,6 +11,9 @@ playstore : https://play.google.com/store/apps/details?id=org.techtown.airpollut
  
 위도,경도 tm좌표로 변환 : https://developers.kakao.com/docs/latest/ko/local/dev-guide#trans-coord
 
+# 사용된 기술
+android studio, kotlin, retrofit2...
+
 # 동작 과정
 사용자 위치정보 수집 -> 카카오developers api를 활용해 위도,경도 좌표를 tm좌표로 변경 ->
 
@@ -18,5 +21,6 @@ tm좌표로 근접측정소 목록 정보 얻어오기 -> 가져온 측정소 �
 
 ![image](https://user-images.githubusercontent.com/86578252/176222013-6c18bdf8-22c0-4108-92a2-00ff395bf7b4.png)
 
+# Result
 
-
+![KakaoTalk_20220708_012022862_02](https://user-images.githubusercontent.com/86578252/177824205-59f8d1d7-de1d-4826-889a-f1205cd88dbd.jpg)
