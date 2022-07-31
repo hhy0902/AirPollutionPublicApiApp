@@ -14,6 +14,9 @@ playstore : https://play.google.com/store/apps/details?id=org.techtown.airpollut
 # 사용된 기술
 android studio, kotlin, retrofit2...
 
+# 추가하고 싶은 기능
+일정 시간에 현재 미세먼지 수치 알려주는 notification 기능
+
 # 동작 과정
 사용자 위치정보 수집 -> 카카오developers api를 활용해 위도,경도 좌표를 tm좌표로 변경 ->
 
