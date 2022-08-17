@@ -99,13 +99,13 @@ class MainActivity : AppCompatActivity() {
     private fun getAirPollution() {
         val url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=JCrJa4%2F4eF07FKbnkSi7BDDUvnJXCE1CTiyt%2FfnxJ%2B7jewHaXTp5hrKQzOKdWYctQB%2B3a%2FHLuUHkTPq4hqrxvA%3D%3D&returnType=json&numOfRows=100&pageNo=1&stationName=%EB%B3%B5%EC%A0%95%EB%8F%99&dataTerm=DAILY&ver=1.3"
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://apis.data.go.kr/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val retrofitService = retrofit.create(RetrofitService::class.java)
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl("http://apis.data.go.kr/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//        val retrofitService = retrofit.create(RetrofitService::class.java)
 
-        retrofitService.getPollution(address).enqueue(object : Callback<Pollution> {
+        RetrofitObject.apiService.getPollution(address).enqueue(object : Callback<Pollution> {
             override fun onResponse(call: Call<Pollution>, response: Response<Pollution>) {
                 if (response.isSuccessful) {
                     val main = response.body()
@@ -246,13 +246,13 @@ class MainActivity : AppCompatActivity() {
     private fun getStationAddress() {
         val url = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?serviceKey=JCrJa4%2F4eF07FKbnkSi7BDDUvnJXCE1CTiyt%2FfnxJ%2B7jewHaXTp5hrKQzOKdWYctQB%2B3a%2FHLuUHkTPq4hqrxvA%3D%3D&returnType=json&tmX=244148.546388&tmY=412423.75772"
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://apis.data.go.kr/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val retrofitService = retrofit.create(RetrofitService::class.java)
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl("http://apis.data.go.kr/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//        val retrofitService = retrofit.create(RetrofitService::class.java)
 
-        retrofitService.getStation(tmX, tmY).enqueue(object : Callback<Station> {
+        RetrofitObject.apiService.getStation(tmX, tmY).enqueue(object : Callback<Station> {
             override fun onResponse(call: Call<Station>, response: Response<Station>) {
                 if (response.isSuccessful) {
                     val station = response.body()
@@ -304,18 +304,14 @@ class MainActivity : AppCompatActivity() {
 
                 binding.myAddress.text = "${subLocality} ${thoroughfare}"
 
-                val retrofit = Retrofit.Builder()
-                    .baseUrl("https://dapi.kakao.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                val retrofitService = retrofit.create(RetrofitService::class.java)
+//                val retrofit = Retrofit.Builder()
+//                    .baseUrl("https://dapi.kakao.com/")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build()
+//                val retrofitService = retrofit.create(RetrofitService::class.java)
 
-                retrofitService.getTmCoordinates(lon, lat).enqueue(object :
-                    Callback<TmCordinatesResponse> {
-                    override fun onResponse(
-                        call: Call<TmCordinatesResponse>,
-                        response: Response<TmCordinatesResponse>
-                    ) {
+                RetrofitObject.apiServiceKakao.getTmCoordinates(lon, lat).enqueue(object : Callback<TmCordinatesResponse> {
+                    override fun onResponse(call: Call<TmCordinatesResponse>, response: Response<TmCordinatesResponse>) {
                         if (response.isSuccessful) {
                             val main = response.body()
                             val tm = main?.documents
