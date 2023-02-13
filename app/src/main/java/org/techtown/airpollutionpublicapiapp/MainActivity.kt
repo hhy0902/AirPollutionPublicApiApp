@@ -20,8 +20,6 @@ import org.techtown.airpollutionpublicapiapp.tmData.TmCordinatesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
 
@@ -97,8 +95,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAirPollution() {
-        val url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=JCrJa4%2F4eF07FKbnkSi7BDDUvnJXCE1CTiyt%2FfnxJ%2B7jewHaXTp5hrKQzOKdWYctQB%2B3a%2FHLuUHkTPq4hqrxvA%3D%3D&returnType=json&numOfRows=100&pageNo=1&stationName=%EB%B3%B5%EC%A0%95%EB%8F%99&dataTerm=DAILY&ver=1.3"
-
+        //val url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=JCrJa4%2F4eF07FKbnkSi7BDDUvnJXCE1CTiyt%2FfnxJ%2B7jewHaXTp5hrKQzOKdWYctQB%2B3a%2FHLuUHkTPq4hqrxvA%3D%3D&returnType=json&numOfRows=100&pageNo=1&stationName=%EB%B3%B5%EC%A0%95%EB%8F%99&dataTerm=DAILY&ver=1.3"
 //        val retrofit = Retrofit.Builder()
 //            .baseUrl("http://apis.data.go.kr/")
 //            .addConverterFactory(GsonConverterFactory.create())
@@ -127,40 +124,8 @@ class MainActivity : AppCompatActivity() {
                     pm10Grade = pollutionList?.pm10Grade1h.toString()
                     pm25Grade = pollutionList?.pm25Grade1h.toString()
 
-                    binding.so2ValueTextView.text = so2+" ppm"
-                    binding.coValueTextView.text = co+" ppm"
-                    binding.o3ValueTextView.text = o3+" ppm"
-                    binding.no2ValueTextView.text = no2+" ppm"
-
-                    Log.d("testt khaiGrade", "${khaiGrade}")
-
-                    when(khaiGrade) {
-                        "1" -> {
-                            binding.totalGradeTextView.text = "좋음"
-                            binding.totalGradleImage.setImageResource(R.drawable.verygood)
-                            binding.layout2.setBackgroundResource(R.color.blue)
-                        }
-                        "2" -> {
-                            binding.totalGradeTextView.text = "보통"
-                            binding.totalGradleImage.setImageResource(R.drawable.bad)
-                            binding.layout2.setBackgroundResource(R.color.green)
-                        }
-                        "3" -> {
-                            binding.totalGradeTextView.text = "나쁨"
-                            binding.totalGradleImage.setImageResource(R.drawable.bad2_1)
-                            binding.layout2.setBackgroundResource(R.color.yellow)
-                        }
-                        "4" -> {
-                            binding.totalGradeTextView.text = "매우나쁨"
-                            binding.totalGradleImage.setImageResource(R.drawable.verybad)
-                            binding.layout2.setBackgroundResource(R.color.red)
-                        }
-                        else -> {
-                            binding.totalGradeTextView.text = "데이터 없음"
-                            binding.totalGradleImage.setImageResource(R.drawable.question)
-                            binding.layout2.setBackgroundResource(R.color.gray)
-                        }
-                    }
+                    settingValue()
+                    changeImageKhaiGrade()
 
                     when(pm10Grade) {
                         "1" -> {
@@ -242,6 +207,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+
+
 
     private fun getStationAddress() {
         val url = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?serviceKey=JCrJa4%2F4eF07FKbnkSi7BDDUvnJXCE1CTiyt%2FfnxJ%2B7jewHaXTp5hrKQzOKdWYctQB%2B3a%2FHLuUHkTPq4hqrxvA%3D%3D&returnType=json&tmX=244148.546388&tmY=412423.75772"
@@ -338,6 +306,44 @@ class MainActivity : AppCompatActivity() {
             } finally {
                 Log.d("testt finish","finish")
                 binding.refresh.isRefreshing = false
+            }
+        }
+    }
+    private fun settingValue() {
+        binding.so2ValueTextView.text = so2+" ppm"
+        binding.coValueTextView.text = co+" ppm"
+        binding.o3ValueTextView.text = o3+" ppm"
+        binding.no2ValueTextView.text = no2+" ppm"
+
+        Log.d("testt khaiGrade", "${khaiGrade}")
+    }
+
+    private fun changeImageKhaiGrade() {
+        when(khaiGrade) {
+            "1" -> {
+                binding.totalGradeTextView.text = "좋음"
+                binding.totalGradleImage.setImageResource(R.drawable.verygood)
+                binding.layout2.setBackgroundResource(R.color.blue)
+            }
+            "2" -> {
+                binding.totalGradeTextView.text = "보통"
+                binding.totalGradleImage.setImageResource(R.drawable.bad)
+                binding.layout2.setBackgroundResource(R.color.green)
+            }
+            "3" -> {
+                binding.totalGradeTextView.text = "나쁨"
+                binding.totalGradleImage.setImageResource(R.drawable.bad2_1)
+                binding.layout2.setBackgroundResource(R.color.yellow)
+            }
+            "4" -> {
+                binding.totalGradeTextView.text = "매우나쁨"
+                binding.totalGradleImage.setImageResource(R.drawable.verybad)
+                binding.layout2.setBackgroundResource(R.color.red)
+            }
+            else -> {
+                binding.totalGradeTextView.text = "데이터 없음"
+                binding.totalGradleImage.setImageResource(R.drawable.question)
+                binding.layout2.setBackgroundResource(R.color.gray)
             }
         }
     }
